@@ -37,7 +37,6 @@ p {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: flex-end;
     min-height: 72px;
     background-color: #f2f2fc;
     margin-bottom: 16px;
@@ -50,12 +49,8 @@ p {
 
 #display #mainText {
     font-size: 72px;
-
-    width: 100%;
-    max-width: 100%;
-    white-space: nowrap;
+    align-self: end;
     overflow: hidden;
-    direction: rtl;
 }
 
 #display.compact #subText {
