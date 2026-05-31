@@ -3,6 +3,8 @@ const mainText = document.getElementById('mainText');
 const subText = document.getElementById('subText')
 const buttons = document.querySelectorAll('.btn');
 
+const operators = ['+', '-', '÷', 'x']
+
 let isCompactDisplay = false;
 
 function updateDisplay() {
@@ -15,7 +17,9 @@ function updateDisplay() {
     }
 }
 
-let inputArray = [];
+let inputArray = [0];
+
+updateDisplay()
 
 buttons.forEach(button => {
     button.addEventListener('click', () => {
@@ -42,6 +46,7 @@ buttons.forEach(button => {
                 break;
 
             case ".":
+                addDot();
                 break;
 
             default: addDigit(value);
@@ -51,14 +56,45 @@ buttons.forEach(button => {
 
 function clearDisplay() {
     inputArray.length = 0;
+    inputArray.push(0)
     isCompactDisplay = false;
     updateDisplay();
 }
 
 function backspace() {
+    if (inputArray.length == 1) {
+        inputArray[0] = 0;
+    } else {
+        inputArray.splice(-1, 1)
+    }
+    updateDisplay();
+}
+
+function addOperator(operator) {
+        inputArray.push(operator);
+        updateDisplay();
 }
 
 function addDigit(digit) {
+    if (inputArray == '0') {
+        inputArray.splice(0,1);
+    }
     inputArray.push(digit);
+    console.log(inputArray)
     updateDisplay()
+}
+
+function addDot() {
+    const lastIndex = inputArray.findLastIndex(item => operators.includes(item));
+
+    const number = inputArray.slice(lastIndex + 1);
+
+    if (!number.includes('.')) {
+        if (number.length = 0) {
+            inputArray.push('0')
+        }
+
+        inputArray.push('.');
+        updateDisplay();
+    }
 }
