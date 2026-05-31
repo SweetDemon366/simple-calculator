@@ -1,19 +1,24 @@
 body, * {
     margin: 0;
     padding: 0;
+    display: flex;
 }
 
-.container {
+p {
+    line-height: 1;
+}
+
+.container, #display {
     padding: 16px;
     border-radius: 16px;
     box-shadow: 5px 5px 10px 0px #1010104d;
 }
 
 #calculator {
-    margin: 50px 500px;
-    display: flex;
-    width: 400px;
-    height: 500px;
+    justify-content: center;
+    align-items: center;
+    margin: 50px;
+    width: 350px;
     background-color: #bfbff2;
     border-radius: 16px;
     padding: 16px;
@@ -24,51 +29,68 @@ body, * {
     flex-direction: column;
     background-color: #d9d9f7;
     flex-grow: 1;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
-#calculator .display .container {
-    align-items: end;
+#display {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    min-height: 72px;
     background-color: #f2f2fc;
-    padding: 16px;
-    height: 70px;
     margin-bottom: 16px;
+    overflow: hidden;
 }
 
-.display .upperLine {
+#display #subText {
+    display: none;
 }
 
-.display .lowerLine {
+#display #mainText {
+    font-size: 72px;
+
+    width: 100%;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    direction: rtl;
 }
 
-.divider {
-    margin: 10px 20px;
-    height: 1px;
-    background-color: #f2f2fc;
+#display.compact #subText {
+    display: block;
+    font-size: 28px;
+    height: 33%;
+}
+
+#display.compact #mainText {
+    font-size: 44px;
+    height: 66%;
 }
 
 .numPad {
-    display: flex;
-    flex-grow: 1;
-}
-
-#calculator .grid {
     flex-grow: 1;
     display: grid;
     gap: 5px;
     grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(4 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    aspect-ratio: 1 / 1;
 }
 
 #calculator .btn {
     display: flex;
     justify-content: center;
-    align-items: center
-    ;
+    align-items: center;
     background-color: #f2f2fc;
     border-radius: 16px;
     border: 0;
     box-shadow: 5px 5px 10px 0px #1010104d;
     font-size: 32px;
+}
+
+#calculator .btn:active {
+    background-color: #ccccf5;
 }
 
 .wide {
