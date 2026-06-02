@@ -1,11 +1,19 @@
 body, * {
     margin: 0;
     padding: 0;
-    display: flex;
+    font-family: system-ui, sans-serif;
 }
 
 p {
     line-height: 1;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .container, #display {
@@ -17,11 +25,11 @@ p {
 #calculator {
     justify-content: center;
     align-items: center;
-    margin: 50px;
     width: 350px;
     background-color: #bfbff2;
     border-radius: 16px;
     padding: 16px;
+    margin-top: 100px;
 }
 
 #calculator .container {
@@ -29,6 +37,7 @@ p {
     flex-direction: column;
     background-color: #d9d9f7;
     flex-grow: 1;
+    width: 100%;
     max-width: 100%;
     box-sizing: border-box;
 }
@@ -91,4 +100,39 @@ p {
 
 .wide {
     grid-column: span 2;
+}
+
+#footer {
+    background-color: #d9d9f7;
+    display: flex;
+    justify-content: center;
+    padding: 16px;
+    border-radius: 16px;
+    margin-bottom: 16px;
+    margin-top: auto;
+}
+
+#footer .container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: #f2f2fc;
+    padding: 16px;
+    gap: 5px;
+}
+
+#github {
+    width: 16px;
+    height: auto;
+    display: inline-block;
+    flex-shrink: 0;
+}
+
+#link {
+    color: black;
+    text-decoration: none;
+    line-height: normal;
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
 }
