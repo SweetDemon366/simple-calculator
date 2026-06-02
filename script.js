@@ -10,6 +10,24 @@ const operators = {
     "÷": (a, b) => a / b
 }
 
+const actions = {
+    "C": clearDisplay,
+    "⌫": backspace,
+    "=": calculate,
+    ".": addDot
+};
+
+const keyMap = {
+    Enter: "=",
+    Escape: "C",
+    Backspace: "⌫",
+    "*": "×",
+    "/": "÷",
+    "-": "−",
+    ",": "."
+};
+
+let inputArray = [0];
 let isCompactDisplay = false;
 let isResultShown = false;
 
@@ -22,42 +40,28 @@ function updateDisplay() {
     mainText.textContent = inputArray.join('');
 }
 
-let inputArray = [0];
-
 updateDisplay()
 
+function handleInput(value) {
+    if (actions[value]) {
+        actions[value]();
+    } else if (["÷", "×", "−", "+"].includes(value)) {
+        addOperator(value);
+    } else if (!isNaN(value)) {
+        addDigit(value);
+    }
+}
+
+document.addEventListener("keydown", (e) => {
+    e.preventDefault();
+    handleInput(keyMap[e.key] || e.key);
+});
+
 buttons.forEach(button => {
-    button.addEventListener('click', () => {
-        const value = button.textContent;
-
-        switch (value) {
-            case "C":
-                clearDisplay();
-                break;
-            
-            case "⌫":
-                backspace();
-                break;
-            
-            case "÷":
-            case "×":
-            case "−":
-            case "+":
-                addOperator(value);
-                break;
-
-            case "=":
-                calculate();
-                break;
-
-            case ".":
-                addDot();
-                break;
-
-            default: addDigit(value);
-        }
-    })
-})
+    button.addEventListener("click", () => {
+        handleInput(button.textContent);
+    });
+});
 
 function clearDisplay() {
     inputArray.length = 0;
