@@ -45,6 +45,7 @@ p {
 
 #display #subText {
     display: none;
+    align-self: end;
 }
 
 #display #mainText {
