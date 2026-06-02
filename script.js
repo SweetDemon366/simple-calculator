@@ -71,6 +71,11 @@ function backspace() {
 }
 
 function addOperator(operator) {
+    const lastIndex = inputArray.findLastIndex(item => operators.includes(item));
+
+    if (inputArray.length == (lastIndex + 1)) {
+        inputArray.splice(-1, 1)
+    }
         inputArray.push(operator);
         updateDisplay();
 }
@@ -93,8 +98,24 @@ function addDot() {
         if (number.length = 0) {
             inputArray.push('0')
         }
-
         inputArray.push('.');
         updateDisplay();
     }
 }
+
+function divide (first, second) {
+    return first / second;
+}
+
+function muiltiple (first, second) {
+    return first * second;
+}
+
+function subtract (first, second) {
+    return first - second;
+}
+
+function add (first, second) {
+    return first + second;
+}
+
