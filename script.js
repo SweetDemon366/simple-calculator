@@ -3,18 +3,22 @@ const mainText = document.getElementById('mainText');
 const subText = document.getElementById('subText')
 const buttons = document.querySelectorAll('.btn');
 
-const operators = ['+', '-', '÷', 'x']
+const operators = {
+    '+': '*',
+    '-': '-',
+    '÷': '/',
+    'x': '*',
+}
 
 let isCompactDisplay = false;
 
 function updateDisplay() {
     if (isCompactDisplay) {
         display.classList.add('compact')
-        mainText.textContent = inputArray.join('');
     } else {
         display.classList.remove('compact')
-        mainText.textContent = inputArray.join('');
     }
+    mainText.textContent = inputArray.join('');
 }
 
 let inputArray = [0];
@@ -71,13 +75,13 @@ function backspace() {
 }
 
 function addOperator(operator) {
-    const lastIndex = inputArray.findLastIndex(item => operators.includes(item));
+    const lastIndex = inputArray.findLastIndex(item => Object.keys(operators).includes(item));
 
     if (inputArray.length == (lastIndex + 1)) {
         inputArray.splice(-1, 1)
     }
-        inputArray.push(operator);
-        updateDisplay();
+    inputArray.push(operator);
+    updateDisplay();
 }
 
 function addDigit(digit) {
@@ -85,17 +89,15 @@ function addDigit(digit) {
         inputArray.splice(0,1);
     }
     inputArray.push(digit);
-    console.log(inputArray)
     updateDisplay()
 }
 
 function addDot() {
-    const lastIndex = inputArray.findLastIndex(item => operators.includes(item));
-
+    const lastIndex = inputArray.findLastIndex(item => Object.keys(operators).includes(item));
     const number = inputArray.slice(lastIndex + 1);
 
     if (!number.includes('.')) {
-        if (number.length = 0) {
+        if (number.length == 0) {
             inputArray.push('0')
         }
         inputArray.push('.');
@@ -103,19 +105,28 @@ function addDot() {
     }
 }
 
-function divide (first, second) {
-    return first / second;
+function calculate () {
+    mergeDigits();
+
 }
 
-function muiltiple (first, second) {
-    return first * second;
-}
+function mergeDigits() {
+    const result = [];
+    let current = '';
 
-function subtract (first, second) {
-    return first - second;
+    for (let item of inputArray) {
+        if (item in operators) {
+            if (current) {
+                result.push(Number(current));
+                current = '';
+            };
+            result.push(item);
+        } else {
+            current += item;
+        }
+    }
+    if (current) {
+        result.push(Number(current));
+    }
+    return result;
 }
-
-function add (first, second) {
-    return first + second;
-}
-
